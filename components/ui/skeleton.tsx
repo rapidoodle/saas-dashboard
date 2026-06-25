@@ -2,12 +2,16 @@ import { cn } from "@/lib/utils";
 
 interface SkeletonProps {
   className?: string;
+  style?: React.CSSProperties;
 }
 
-export function Skeleton({ className }: SkeletonProps) {
+import React from "react";
+
+export function Skeleton({ className, style }: SkeletonProps) {
   return (
     <div
-      className={cn("animate-pulse rounded-md bg-gray-200", className)}
+      className={cn("animate-pulse rounded-md bg-amazon-navy-light", className)}
+      style={style}
     />
   );
 }

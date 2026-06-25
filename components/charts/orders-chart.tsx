@@ -30,8 +30,8 @@ export function OrdersChart({ data }: OrdersChartProps) {
   }));
 
   return (
-    <div className="bg-white rounded-xl border border-gray-200 p-6">
-      <h3 className="text-base font-semibold text-gray-900 mb-4">Orders by status</h3>
+    <div className="bg-amazon-navy-mid rounded-xl border border-amazon-navy-light p-6">
+      <h3 className="text-base font-semibold text-white mb-4">Orders by status</h3>
       <ResponsiveContainer width="100%" height={260}>
         <PieChart>
           <Pie
@@ -49,9 +49,14 @@ export function OrdersChart({ data }: OrdersChartProps) {
           </Pie>
           <Tooltip
             formatter={(v: number) => [v, "Orders"]}
-            contentStyle={{ borderRadius: "8px", border: "1px solid #e5e7eb" }}
+            contentStyle={{
+              borderRadius: "8px",
+              border: "1px solid #37475A",
+              backgroundColor: "#232F3E",
+              color: "#fff",
+            }}
           />
-          <Legend />
+          <Legend wrapperStyle={{ fontSize: 12, color: "#9CA3AF" }} />
         </PieChart>
       </ResponsiveContainer>
     </div>

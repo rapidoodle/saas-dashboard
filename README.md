@@ -1,8 +1,24 @@
-# SaaSBoard — E-commerce Analytics Dashboard
+# Amazon DR Dashboard — Amazon Seller Daily Review
 
-A full-stack SaaS dashboard portfolio project built with **Next.js 14 (App Router)**, **TypeScript**, **PostgreSQL**, **Prisma ORM**, **NextAuth.js**, and **Recharts**.
+A full-stack SaaS dashboard built for Amazon sellers to run their **Daily Review (DR)** — tracking sales, FBA inventory, listing health, and reviews in one Amazon-branded interface.
 
-It demonstrates real-world patterns used in production SaaS products: authentication, role-based access control, relational data modeling, REST APIs with validation, and interactive analytics.
+Built with **Next.js 14 (App Router)**, **TypeScript**, **Amazon SP-API**, **Prisma ORM**, **NextAuth.js**, and **Recharts**.
+
+## Amazon DR Features
+
+| Page | What it shows |
+|------|--------------|
+| **Daily Review** | Revenue, units ordered, sessions, Buy Box %, conversion rate, DR checklist |
+| **Inventory** | FBA stock levels, days of supply, restock alerts, stranded/unfulfillable units |
+| **Listings & Reviews** | Listing health, suppression issues, star ratings, negative reviews needing attention |
+| **Orders** | Order pipeline with status breakdown |
+
+## Connecting Amazon SP-API
+
+1. Copy `.env.local.example` → `.env.local`
+2. Fill in all `AMAZON_*` variables (see README below for step-by-step)
+3. Switch mock data to live SP-API calls in inventory/listings pages
+4. SP-API client is in `lib/amazon-sp-api.ts` — handles LWA auth + AWS SigV4 signing
 
 ![Next.js](https://img.shields.io/badge/Next.js_14-black?style=flat&logo=next.js)
 ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat&logo=typescript&logoColor=white)
@@ -132,25 +148,36 @@ DATABASE_URL="<your-neon-url>" npm run db:seed
 
 ```
 app/
-  (auth)/login/        # Login page
+  (auth)/login/            # Login page
   (dashboard)/
-    dashboard/         # Analytics + charts
-    orders/            # Order management
-    products/          # Product management
-    customers/         # Customer management
-    users/             # User management (Admin only)
-  api/                 # REST API routes with Zod validation
+    dashboard/             # Daily Review — KPIs, revenue chart, DR checklist
+    inventory/             # FBA inventory table + restock alerts
+    listings/              # Listings health + review monitoring
+    orders/                # Order management
+    products/              # Product management
+    customers/             # Customer management
+    users/                 # User management (Admin only)
+  api/
+    amazon/
+      sales/               # SP-API Sales & Traffic
+      inventory/           # SP-API FBA Inventory
+      listings/            # SP-API Listings Items
+    ...                    # Standard CRUD routes
 components/
-  charts/              # Recharts wrappers
-  layout/              # Sidebar, Header
-  ui/                  # Button, Input, Modal, Badge
+  charts/                  # Recharts wrappers (Amazon-themed)
+  dashboard/               # StatCard, DailyReviewAlert
+  inventory/               # InventoryTable, InventoryAlerts
+  listings/                # ListingsTable, ReviewSummary
+  layout/                  # Sidebar (Amazon branding), Header
+  ui/                      # Button, Input, Modal, Badge, Skeleton
 lib/
-  auth.ts              # NextAuth config
-  db.ts                # Prisma client singleton
-  permissions.ts       # RBAC permission map
+  amazon-sp-api.ts         # SP-API client (LWA auth + AWS SigV4)
+  auth.ts                  # NextAuth config
+  db.ts                    # Prisma client singleton
+  permissions.ts           # RBAC permission map
 prisma/
-  schema.prisma        # Database schema
-  seed.ts              # Demo seed data
+  schema.prisma            # Database schema
+  seed.ts                  # Demo seed data
 ```
 
 ---
