@@ -1,8 +1,4 @@
 {
   "buildCommand": "prisma generate && prisma migrate deploy && next build",
-  "framework": "nextjs",
-  "env": {
-    "DATABASE_URL": "@postgres-prisma-url",
-    "DATABASE_URL_NON_POOLING": "@postgres-url-non-pooling"
-  }
+  "framework": "nextjs"
 }
