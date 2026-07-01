@@ -8,7 +8,6 @@ export async function GET(req: NextRequest) {
     const skusParam = req.nextUrl.searchParams.get("skus");
     const skus = skusParam ? skusParam.split(",") : undefined;
     const data = await getFbaInventory(creds, skus);
-    
     return NextResponse.json(data);
   } catch (err) {
     const msg = err instanceof Error ? err.message : String(err);
